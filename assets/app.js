@@ -28,7 +28,7 @@ function dateChip(day, types, detail = false) {
   return `<span class="date-chip${detail ? " month-detail" : ""} ${kind}" title="${escapeHtml(title)}">${day}</span>`;
 }
 
-function monthButton(month) {
+function monthButton(month, data) {
   const button = document.createElement("button");
   button.type = "button";
   button.className = "month-button";
@@ -38,13 +38,13 @@ function monthButton(month) {
   button.addEventListener("click", () => {
     if (selectedMonths.has(month)) selectedMonths.delete(month);
     else selectedMonths.add(month);
-    render();
+    render(data);
   });
   return button;
 }
 
-function renderMonths(months) {
-  monthList.replaceChildren(...months.map(monthButton));
+function renderMonths(months, data) {
+  monthList.replaceChildren(...months.map((month) => monthButton(month, data)));
 }
 
 function collectRecords(data) {
@@ -133,7 +133,7 @@ async function start() {
     new Option(String(data.year), String(data.year), true, true),
   );
   document.querySelector("#snapshot-date").textContent = data.asOf;
-  renderMonths(data.availableMonths);
+  renderMonths(data.availableMonths, data);
   render(data);
 
   document.querySelector("#select-all").addEventListener("click", () => {
