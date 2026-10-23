@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#f4f5fb" />
+    <meta
+      name="description"
+      content="按地区查看人工配置与动态配置的大促日期。"
+    />
+    <title>大促生效日期汇总</title>
+    <link rel="stylesheet" href="./assets/styles.css" />
+    <script type="module" src="./assets/app.js"></script>
+  </head>
+  <body>
+    <main class="page-shell">
+      <header class="hero">
+        <div class="hero-copy">
+          <p class="eyebrow">WEEKLY REPORT HELPER · 2026</p>
+          <h1>大促生效日期汇总</h1>
+          <p class="intro">
+            按地区查看人工配置与动态配置的大促日期。选择多个月份时，右侧会同步计算这些月份中大促日号的并集。
+          </p>
+        </div>
+        <div class="snapshot-badge" aria-label="数据快照信息">
+          <span class="snapshot-dot" aria-hidden="true"></span>
+          <span>数据截至 <time id="snapshot-date">读取中</time></span>
+        </div>
+      </header>
+
+      <section class="panel filter-panel" aria-labelledby="controls-title">
+        <div class="panel-heading filter-heading">
+          <div>
+            <h2 id="controls-title">选择查看范围</h2>
+            <p class="muted">数据按日期中的年份和月份归档</p>
+          </div>
+          <span class="updated-note">无需登录 · 无权限管理</span>
+        </div>
+
+        <div class="filter-grid">
+          <label class="year-field" for="year-select">
+            <span class="field-label">年份</span>
+            <select id="year-select" aria-label="选择年份">
+              <option value="2026" selected>2026</option>
+            </select>
+          </label>
+
+          <div class="month-field">
+            <div class="month-label-row">
+              <span class="field-label">月份（可多选）</span>
+              <span class="month-actions">
+                <button id="select-all" class="text-button" type="button">全选</button>
+                <span aria-hidden="true">/</span>
+                <button id="clear-all" class="text-button" type="button">清空</button>
+              </span>
+            </div>
+            <div id="month-list" class="month-list" role="group" aria-label="选择月份"></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="summary-strip" aria-label="汇总数字" aria-live="polite">
+        <article class="summary-card">
+          <strong id="region-count">—</strong><span>个地区</span>
+        </article>
+        <article class="summary-card">
+          <strong id="day-count">—</strong><span>个不重复日号</span>
+        </article>
+        <article class="summary-card">
+          <strong id="record-count">—</strong><span>条地区生效记录</span>
+        </article>
+        <article class="summary-card">
+          <strong id="month-count">—</strong><span>个月份</span>
+        </article>
+      </section>
+
+      <section class="panel results-panel" aria-labelledby="result-title">
+        <div class="results-heading">
+          <div>
+            <h2 id="result-title">地区日期总览</h2>
+            <p class="muted">“并集日号”会对所选月份去重，例如 7 月 + 8 月的 1 号只保留一次。</p>
+          </div>
+          <span id="selection-label" class="selection-label">2026 · 8月</span>
+        </div>
+
+        <div class="table-scroll">
+          <table>
+            <thead>
+              <tr>
+                <th scope="col">地区</th>
+                <th scope="col">并集日号</th>
+                <th scope="col">去重后</th>
+                <th scope="col">按月明细</th>
+              </tr>
+            </thead>
+            <tbody id="results-body"></tbody>
+          </table>
+        </div>
+        <div id="empty-state" class="empty-state" hidden>
+          <span class="empty-icon" aria-hidden="true">⌁</span>
+          <strong>没有匹配的生效记录</strong>
+          <span>请勾选其他月份；当前静态数据从 2026 年 4 月开始。</span>
+        </div>
+      </section>
+
+      <footer class="page-footer">
+        <div class="legend" aria-label="日期类型图例">
+          <span><i class="legend-dot manual" aria-hidden="true"></i>人工配置大促</span>
+          <span><i class="legend-dot dynamic" aria-hidden="true"></i>动态配置大促</span>
+          <span><i class="legend-dot mixed" aria-hidden="true"></i>同一日号包含两种类型</span>
+        </div>
+        <p>
+          口径：all region 展开为 ID、BR、MY、TH、VN、TW、SG、PH；页面仅展示日期、地区和配置类型，配置自动同步后会按日更新。
+        </p>
+      </footer>
+    </main>
+    <noscript><p class="noscript">此页面需要启用 JavaScript 才能计算筛选结果。</p></noscript>
+  </body>
+</html>
